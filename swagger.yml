@@ -1,0 +1,158 @@
+swagger: "2.0"
+info:
+  description: "_TalentHub 2023 Final Assignment_ \n
+  This API empowers us to create, read, update, and delete milestones, offering a dynamic and efficient way to record our accomplishments.\n 
+  \n A milestone is a significant point or event in a project, program, or process that represents progress or achievement. It is often used as a way to mark key stages or accomplishments along the timeline of a project, helping to track and measure its success. \n
+  Created by Surya Hanjaya."
+  version: "1.0.0"
+  title: "Milestone API: Navigating Achievements with Python Flask"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+paths:
+  /milestones:
+    get:
+      operationId: "crud_milestones.get_all"
+      tags:
+        - "Milestones"
+      summary: "Get Entire List"
+      description: "to Get/Retrieve all Milestones data"
+      responses:
+        200:
+          description: "Successfully get milestone data based on ID"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Milestone"
+    post:
+      operationId: "crud_milestones.create"
+      tags:
+        - "Milestones"
+      summary: "Adding Milestone"
+      description: "to Add a new Milestone"
+      parameters:
+        - name: "milestone"
+          in: "body"
+          description: "input milestone data to be added in database"
+          required: true
+          schema:
+            $ref: "#/definitions/MilestoneInput"
+      responses:
+        200:
+          description: "Successfully added milestone"
+          schema:
+            $ref: "#/definitions/Milestone"
+        404:
+          description: "ERROR. Make sure that you have entered in the correct form and try again."
+  /milestones/{id}:
+    get:
+      operationId: "crud_milestones.get_single"
+      tags:
+        - "Milestones"
+      summary: "Get Milestone Data"
+      description: "to Get Milestone data based on ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: " input the ID of the milestone being searched for"
+          type: "integer"
+          required: true
+      responses:
+        200:
+          description: "Successfully get milestone data"
+          schema:
+            $ref: "#/definitions/Milestone"
+        404:
+          description: "ERROR. Milestone data not found"
+    put:
+      operationId: "crud_milestones.update"
+      tags:
+        - "Milestones"
+      summary: "Update Milestone Data"
+      description: "to Update Milestone based on ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "input the ID of the milestone that will be updated"
+          type: "integer"
+          required: true
+        - name: "milestone"
+          in: "body"
+          description: "input which milestone data to be updated"
+          required: true
+          schema:
+            $ref: "#/definitions/MilestoneInput"
+      responses:
+        200:
+          description: "Successfully update milestone"
+          schema:
+            $ref: "#/definitions/Milestone"
+        404:
+          description: "ERROR. Milestone data not found"
+    delete:
+      operationId: "crud_milestones.delete"
+      tags:
+        - "Milestones"
+      summary: "Delete Milestone"
+      description: "to Delete Milestone based on ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "input the ID of the milestone that will be deleted"
+          type: "integer"
+          required: true
+      responses:
+        200:
+          description: "Successfully delete milestone"
+          schema:
+            $ref: "#/definitions/Milestone"
+        404:
+          description: "ERROR. Milestone data not found"
+
+definitions:
+  Milestone:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      topic:
+        type: "string"
+        description: "The topic of the milestone"
+      achievement:
+        type: "string"
+        description: "Achievement that is obtained when learning lessons at milestones"
+      description:
+        type: "string"
+        description: "A more detail information of the milestone"
+      complete:
+        type: "boolean"
+        description: "Indicate whether the milestone has been completed or not"
+      created_at:
+        type: "string"
+        description: "Show when the milestone was created"
+      updated_at:
+        type: "string"
+        description: "Shows when the milestone was last updated"
+
+  MilestoneInput:
+    type: "object"
+    properties:
+      topic:
+        type: "string"
+        description: "The topic of the milestone"
+      achievement:
+        type: "string"
+        description: "Achievement that is obtained when learning lessons at milestones"
+      description:
+        type: "string"
+        description: "A more detail information of the milestone"
+      complete:
+        type: "boolean"
+        description: "Indicate whether the milestone has been completed or not"
+
+
+
+
